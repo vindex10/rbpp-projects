@@ -31,7 +31,7 @@ Print;
 #include form-square/vars.h
 * define custom symbols (irrelevant to Tr(M^2) computation) used in M
 #include customvars.h
-Symbol mE, mMu;
+Symbol mB, mMu;
 Symbol s, t;
 
 Local res = Msq;
@@ -45,14 +45,14 @@ id p2.p2 = m(p2)^2;
 id p3.p3 = m(p3)^2;
 id p4.p4 = m(p4)^2;
 
-id m(p1) = mE;
-id m(p2) = mE;
-id m(p3) = mMu;
-id m(p4) = mMu;
+id m(p1) = mMu;
+id m(p2) = mMu;
+id m(p3) = mB;
+id m(p4) = mB;
 
-id p1.p2 = s - 2*mE^2;
-id p1.p3 = -t + mE^2 + mMu^2;
-id p2.p3 = s + t - mE^2 - mMu^2;
+id p1.p2 = s - 2*mMu^2;
+id p1.p3 = -t + mMu^2 + mB^2;
+id p2.p3 = s + t - mMu^2 - mB^2;
 
 bracket t;
 
