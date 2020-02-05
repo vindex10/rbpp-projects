@@ -1,0 +1,3 @@
+[submodule "external/form-square"]
+	path = external/form-square
+	url = https://github.com/vindex10/form-square
