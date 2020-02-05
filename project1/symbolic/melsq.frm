@@ -4,6 +4,8 @@
 * define number of lorentz indices being used in M
 #define LORENTZIDXNUM "10"
 
+#define DEBUG "0"
+
 
 * include required variables, see descriptions in the vars.h
 #include form-square/vars.h
@@ -18,7 +20,9 @@ Global M = Mphoton + Mhiggs + Mz;
 * contract possible einstein symbols (eliminates metric tensor for instance, if possible)
 contract;
 
-Print;
+#if `DEBUG'
+    Print;
+#endif
 .store;
 
 
@@ -34,7 +38,7 @@ Print;
 Symbol mB, mMu;
 Symbol s, t;
 
-Local res = Msq;
+Global MsqSimple = Msq;
 
 id q = p1 + p2;
 
@@ -56,5 +60,24 @@ id p2.p3 = s + t - mMu^2 - mB^2;
 
 bracket t;
 
+#if `DEBUG'
+    Print;
+#endif
+.store
+
+
+* include required variables, see descriptions in the vars.h
+#include form-square/vars.h
+* define custom symbols (irrelevant to Tr(M^2) computation) used in M
+#include customvars.h
+Symbol mB, mMu, mZ, mH, PI;
+Symbol s, t;
+
+Local res = 1/64/PI/s/(s/4 - mMu^2)*MsqSimple;
+id [photon prop] = 1/s;
+id [higgs prop] = 1/(s - mH^2);
+id [z prop] = 1/(s - mZ^2);
+
+bracket t;
 Print;
 .end
