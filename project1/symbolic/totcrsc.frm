@@ -10,9 +10,10 @@ Symbol n;
 
 Local 
     #include `INPUTFILE'
-Local totcrsc = 1/4*1/64/s/PI/(s/4 - mMu^2)*`FROMNAME';
-id t^n = t*t^n/(n+1);
+Local totcrsc = t*3/4*1/64/s/PI/(s/4 - mMu^2)*`FROMNAME';
+id t^n?pos_ = t^n/n;
 #call restoreDenoms()
+bracket t;
 
 Print totcrsc;
 .end
