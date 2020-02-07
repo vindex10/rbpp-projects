@@ -1,4 +1,4 @@
-Symbol e, mB, mMu, mZ, mH, gW, gZ, mW, sW, wZ;
+Symbol e, mB, mMu, mZ, mH, gW, gZ, mW, sW, wZ, wH;
 Symbol s, t;
 Symbol PI;
 CFunction SQRT;
