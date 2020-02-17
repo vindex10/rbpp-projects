@@ -5,9 +5,9 @@
 #include form-square/vars.h
 #include customvars.h
 
-Local Mphoton = vbar(fline1, p2)*i_*e*g(fline1, mu1)*u(fline1, p1) * (-i_*d_(mu1, mu2) * [photon prop]) * ubar(fline2, p3)*i_*(1/3*e)*g(fline2, mu2)*v(fline2, p4);
+Local Mphoton = vbar(fline1, p2)*i_*e*g(fline1, mu1)*u(fline1, p1) * (-i_*d_(mu1, mu2) * [photon prop]) * ubar(fline2, p3)*i_*(-Qb*e)*g(fline2, mu2)*v(fline2, p4);
 Local Mhiggs = vbar(fline1, p2)*(-i_*[gW/mW]*m(p1)/2)*u(fline1, p1) * (i_*[higgs prop]*(s - mH^2 + i_*wH*mH)) * ubar(fline2, p3)*(-i_*[gW/mW]*m(p3)/2)*v(fline2, p4);
-Local Mz = vbar(fline1, p2)*(-i_*gZ/2)*((-1/2 + 2*sW^2)*g(fline1, mu1) + 1/2*g(fline1, mu1)*g(fline1, gIdx5))*u(fline1, p1) * (-i_)*(mZ^2*d_(mu1, mu2) - q(mu1)*q(mu2))*[z prop]*(s - mZ^2 + i_*wZ*mZ) * ubar(fline2, p3)*(-i_*gZ/2)*((-1/2 + 2/3*sW^2)*g(fline2, mu2) + 1/2*g(fline2, mu2)*g(fline2, gIdx5))*v(fline2, p4);
+Local Mz = vbar(fline1, p2)*(-i_*gZ/2)*((-1/2 + 2*sW^2)*g(fline1, mu1) + 1/2*g(fline1, mu1)*g(fline1, gIdx5))*u(fline1, p1) * (-i_)*(mZ^2*d_(mu1, mu2) - q(mu1)*q(mu2))*[z prop]*(s - mZ^2 + i_*wZ*mZ) * ubar(fline2, p3)*(-i_*gZ/2)*((-1/2 - 2*Qb*sW^2)*g(fline2, mu2) + 1/2*g(fline2, mu2)*g(fline2, gIdx5))*v(fline2, p4);
 
 Global M = Mphoton + Mhiggs + Mz;
 contract;
