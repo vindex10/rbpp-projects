@@ -1,0 +1,7 @@
+*.fls
+*.synctex.gz
+*.log
+*.aux
+*.fdb_latexmk
+*.pdf
+img/generated/
