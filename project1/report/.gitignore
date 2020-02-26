@@ -4,4 +4,7 @@
 *.aux
 *.fdb_latexmk
 *.pdf
+*.bbl
+*.blg
+*.out
 img/generated/

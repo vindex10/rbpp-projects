@@ -1,13 +1,15 @@
 NAME=ananyev-project1-report
 
-.PHONY: all clean purge view
+.PHONY: all clean purge view force
 
 
 all: ananyev-project1-report.pdf
 
-$(NAME).pdf: $(NAME).tex
+force: purge all
+
+$(NAME).pdf: $(NAME).tex $(wildcard diags/*.tex) literature.bib $(shell find ../scattering/output -type f)
 	mkdir -p img/generated
-	latexmk -dvi- -ps- -pdf -pdflatex="lualatex --shell-restricted -synctex=1 %O %S" $<
+	latexmk -g -dvi- -ps- -pdf -pdflatex="lualatex --shell-restricted -synctex=1 %O %S" $<
 
 clean:
 	latexmk -c $(NAME)

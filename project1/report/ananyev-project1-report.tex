@@ -1,19 +1,272 @@
 \documentclass{article}
 
+\usepackage[a4paper, margin=1in]{geometry}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+
+\usepackage{booktabs}
+\usepackage{listingsutf8}
+\lstset{%
+inputpath=../scattering/output,
+basicstyle=\footnotesize,
+captionpos=b
+}
+
 \usepackage{amsmath}
 \usepackage{amssymb}
+
+\usepackage{hyperref}
+\usepackage{cleveref}
+
+\usepackage{tikz-feynman}
 
 \usepackage{graphicx}
 \graphicspath{{../scattering/output/}}
 \usepackage{epstopdf}
 \epstopdfsetup{outdir=./img/generated/}
 
+\newcommand{\Mel}{\mathcal{M}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\ee}{\mathrm{e}}
+\newcommand{\swsq}{\sin{{}^2 \theta_w}}
+\newcommand{\abs}[1]{\left|#1\right|}
+\renewcommand{\vec}[1]{\mathbf{#1}}
+
+
+\title{FYS5555 Compulsory project 1}
+\author{Victor Ananyev}
+
+\allowdisplaybreaks[1]{}
 
 \begin{document}
-    Hello world!
+\maketitle
 
-    \includegraphics{visualized/dcrsc_t.eps}
+\section{Muon collider}
+
+\paragraph{Process} In this project we will investigate the process of annihilation of muon and anti-muon pair into $b$ and $\bar{b}$ quarks. At the tree level in the leading order the following three diagrams contribute:
+
+\begin{figure}[h]
+\centering
+    \subcaptionbox{Photon}{\input{diags/mumu-G-bb.tex}}%
+    \hfill%
+    \subcaptionbox{Z}{\input{diags/mumu-Z-bb.tex}}%
+    \hfill%
+    \subcaptionbox{Higgs}{\input{diags/mumu-H-bb.tex}}%
+    \label{fig:tree-diags}
+    \caption{Feynman diagrams contributing to $\mu^{+} \mu^{-} \rightarrow b \bar{b}$ at the tree level in the leading order}
+\end{figure}
+
+Out main goal is to explore the behavior of the differential cross-section, total cross-section and forward-backward asymmetry of the process, and learn the role of each diagram contributing to it.
+
+\paragraph{Building matrix element} The key quanity common for all observables mentioned above is the matrix element. It assembles all our knowledge about fundamental interactions and is the only quantity which depends on the model parameters. To compute matrix element we draw Feynman diagrams, each representing a term in the Taylor expansion of S-matrix with respect to the coupling constant, and translate each diagram into a mathematical expression. For the process $\mu^{-} \mu^{+} \rightarrow b \bar{b}$, based on the diagrams at the tree (lowest) level we get the following matrix element:
+
+\begin{align}
+    &\Mel = \Mel_{\gamma} + \Mel_{Z} + \Mel_{h} \\
+    &\Mel_{\gamma} = \bar{v}(p_2) \ii e \gamma^{\mu_1} u(p_1) \  \frac{-\ii g_{\mu_1 \mu_2}}{q^2} \  \bar{u}(p_3) (- \ii Q_b e) \gamma^{\mu_2} v(p_4) \\
+    &\Mel_{h} = \bar{v}(p_2) \frac{-\ii}{2} \frac{g_W}{m_W} m_{\mu} u(p_1) \  \frac{\ii}{q^2 - m_h^2} \  \bar{u}(p_3) \frac{-\ii}{2} \frac{g_W}{m_W} m_{b} v(p_4) \\
+\begin{split}
+    &\Mel_{Z} = \bar{v}(p_2) \frac{-\ii g_Z}{2} \gamma^{\mu_1} \left[ (-\frac{1}{2} + 2 \swsq) + \frac{1}{2} \gamma^5 \right] u(p_1) \times \\
+    &\ \times (-\ii) \frac{g_{\mu_1 \mu_2} - \frac{q^{\mu_1}q^{\mu_2}}{m_Z^2}}{q^2 - m_Z^2} \  \bar{u}(p_3) \frac{-\ii g_Z}{2} \gamma^{\mu_2} \left[ (-\frac{1}{2} - 2 Q_b \swsq) + \frac{1}{2} \gamma^5 \right] v(p_4)
+\end{split}
+\end{align}
+
+While building the expression for matrix element we used Feynman rules in the notation of Nagashima et al.~\cite{book:nagashima-sm}. Here $e$ is the elementary charge (which numerically is equal to absolute value of the electron charge, but differs in sign), $Q_b$ is the charge of $b$-quark measured in $e$ units, $(m_W, m_b, m_{\mu}, m_Z, m_H)$ are masses of the corresponding particles, $\theta_w$ is the Weinberg's angle, $g_W$ and $g_Z$ are weak coupling constants. It is important to mention that these parameters are not independent, this is a weakness of the representation from the perspective of the rigorous theory, but at the same time it allows for a flexibility of testing the entire expression separating diagram contributions.
+
+Below we provide the table of numerical values being used in plots and numerics. Values correspond to CompHEP~\cite{url:comphep} default parameters for SM in Unitary gauge.
+
+\begin{table}[H]
+    \centering
+    \caption{Model parameters used for calculations (extracted from CompHEP)}
+    \label{tab:params}
+    \begin{tabular}{cc}
+        \toprule
+        $m_\mu$ & $ 0.105 $ \\ \midrule
+        $m_b$ & $ 4.85 $ \\ \midrule
+        $m_W$ & $ 80.0 $ \\ \midrule
+        $m_h$ & $ 115.0 $ \\ \midrule
+        $m_Z$ & $ 91.2 $ \\ \midrule
+        $e$ & $ 0.313 $ \\ \midrule
+        $Q_b$ & $ -\frac{1}{3} $ \\ \midrule
+        $\sin{\theta_w}$ & $ 0.48076 $ \\ \midrule
+        $g_W$ & $\frac{e}{\sin{\theta_w}} = 0.651 $ \\ \midrule
+        $g_Z$ & $\frac{e}{\sin{\theta_w} \cos{\theta_w}} = 0.742 $ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+To take into account the finite lifetime of massive $Z$ and $h$ in the propagators, we append imaginary term to their propagators, proportional to their decay width:
+
+\begin{align}
+    & Z: \quad \frac{1}{q^2 - m_Z^2} \rightarrow \frac{1}{q^2 - m_Z^2 + \ii m_Z \Gamma_Z} \\
+    & h: \quad \frac{1}{q^2 - m_h^2} \rightarrow \frac{1}{q^2 - m_h^2 + \ii m_h \Gamma_h}
+\end{align}
+
+Corresponding widths were taken from CompHEP:
+
+\begin{table}[H]
+    \centering
+    \caption{Decay widths used for calculations}
+    \label{tab:widths}
+    \begin{tabular}{cc}
+        \toprule
+        $\Gamma_Z$ & $ 2.43 $ \\ \midrule
+        $\Gamma_h$ & $ 0.00617 $ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\paragraph{Computation} After extending propagators with the decay width terms, we have to square the matrix element (keeping track of interference terms), apply spinor summation identities and gamma matrix traces. To conduct this very technical and involved procedure we developed a special routine based on the FORM~\cite{url:form} package.
+
+FORM allows for easy symbolic calculations with powerful pattern matching capabilities. It simplifies operations with vectors and non-commutative objects (like matrices and operators), keeping track of indices under the hood. The essential part of the package is automated computation of traces of gamma matrices, so that you'll never miss index or term in your QFT computations.
+
+Making use of the FORM's power we developed a simple routine which implements only two operations: complex conjugation of the matrix element and taking the trace with spinor sums. You can find the source code for the abstract package~\cite{url:form-square} and also its application to the muon annihilation process~\cite{url:rbpp-symbolic} at our GitHub page. As a cross-check we computed matrix element for $e e^{+} \rightarrow \mu \mu^{+}$ and compared to the result given by Peskin and Schroeder~\cite{book:peskin}.
+
+Below we are showing an extract from the differential cross-section. While it is not readable, it makes it obvious why overparametrization of the model comes in handy. Overparametrizaiton helps us to investigate contributions of different terms separately.
+
+\lstinputlisting[caption={Differential cross-section. FORM output. First 20 lines},%
+                 lastline=20]{melsq.output}
+
+Similar expression was produced for the total cross-section. Both of them afterwards were fed to the Jupyter Notebook in order to visualize the dependencies and compare them to CompHEP output. You can find the full notebook at the GitHub~\cite{url:rbpp-visualize}.
+
+\paragraph{Differential cross-section} General expression for the differetial cross section in the center of mass (c.o.m) frame looks as follows~\cite{book:pdg}:
+
+\begin{align}
+    \frac{d \sigma}{d t} = \frac{1}{64 \pi s} \frac{1}{\abs{\vec{p}_{cm}}} \abs{\Mel}^2
+\end{align}
+
+First of all we plot the differential cross section as a function of $t = {(\vec{p}_1 - \vec{p}_3)}^2$, then we apply coordinate change in order to get expression in terms of $\cos{\theta} = \frac{\vec{p}_1 \cdot \vec{p}_3}{\abs{\vec{p}_1} \abs{\vec{p}_3}}$.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_t.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_cos.eps}}
+    \caption{Differential cross section and contributions of various processes, $s = 120~GeV$}%
+    \label{fig:dcrsc}
+\end{figure}
+
+For the transformation from $t$ to $\cos{\theta}$ we had to take into account the Jacobian:
+
+\begin{align}
+    \frac{d t}{d \cos{\theta}} = 2 \sqrt{\frac{s}{4} - m_\mu^2} \sqrt{\frac{s}{4} - m_b^2}
+\end{align}
+
+Also $\frac{d \sigma}{d \cos{\theta}}$ is measured in $pb = 2.56819\times10^{-9} GeV^{-2}$. We excluded Higgs process since it is several orders of magnitude smaller then other contributions. The essential effect which can be discovered from the partial contribution plots, is that assymetry is not present in separate channels but being generated only due to the interference.
+
+\paragraph{Total cross section} We plot total cross section at different energy scales: \textit{low energy} ($\sqrt{s}<80~GeV$), to make electromagnetic contribution and masses of leptons explicit, \textit{high energy} ($\sqrt{s}<8~TeV$) to compare large scale behaviors of the processes, finally ranges around $Z$ and $H$ \textit{peaks} to verify that we catch these signs of Standard Model in our calculations.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_lowS.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_lowS_contrib.eps}}
+    \caption{Total cross section and contributions of various processes at low energies}%
+    \label{fig:totcrsc_lowS}
+\end{figure}
+
+It can be seen from the low energy plot~(see \cref{fig:totcrsc_lowS}) that contribution of the electromagnetic interaction contributes dominantly in the region close to the $b \bar{b}$ threshold, but then decreases quickly. At the same time contribution of $Z$ grows, because at $80~GeV$ we are getting quite close to the $Z$'s on-shell mass. Also, notice $H$ contribution, it stays comparably suppressed throughout the whole region.
+
+We also want to verify how neglectable are masses of leptons and quarks in this region. For this we plot the total cross section setting $m_\mu = 0$ or $m_b = 0$ explicitly~(\cref{fig:totcrsc_lowS_nomass}).
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{visualized/totcrsc_lowS_nomass.eps}
+    \caption{Total cross section with zero mass assumptions at low energeis}%
+    \label{fig:totcrsc_lowS_nomass}
+\end{figure}
+
+Here we discover that we can neglect both mass of muon and b-quark while still catching qualitative behavior of the total cross-section.
+
+After working out some features of low energy behavior, let's investigate the big picture. It is mainly to confirm irrelevance of the Higgs contribution for this process. Peaks are not present on the large scale plot~(\cref{fig:totcrsc_tail}) because the step of the grid is wide and we just jump over the peaks. Since peaks are not the aim of the large scale analysis, we don't try to workaround this issue.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_tail.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_tail_contrib.eps}}
+    \caption{Total cross section and contributions of various processes at large energies}%
+    \label{fig:totcrsc_tail}
+\end{figure}
+
+Now when we've got an idea about the general behavior of different channels contributing to the total cross section, let's focus on the peaks. We plot $Z$-peak~(\ref{fig:totcrsc_Zpeak}) together with the CompHEP prediction, but also we show how essential is decay width of $Z$ around the resonance mass. The total cross section otherwise diverges in this region, so we regularize it by exploiting Breit-Wigner trick.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Zpeak.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Zpeak_contrib.eps}}
+    \caption{Total cross section and contributions of various processes around the $Z$ peak}%
+    \label{fig:totcrsc_Zpeak}
+\end{figure}
+
+Indeed, around $Z$ peak other contributions look flat and $Z$-channel contributes dominantly to the shape and the absolute value of the cross section.
+
+Finally, we arrive to Higgs boson peak~(\cref{fig:totcrsc_Hpeak}), and this is the tricky one. It is very narrow, so it is numerically hard to catch it on the grid. We end up with few points appearing on it. Also, notice that Higgs mass we used here is not the well known one, because we tried to fit the CompHEP line, thus we took the CompHEP default mass $m_h = 115~GeV$. The essential difference between Higgs peak and $Z$ peak is that in case of $Z$, $Z$ interaction contributes dominantly around the peak, while in the $H$ case $Z$ still provides the baseline while Higgs provides a peak on top.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Hpeak.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Hpeak_contrib.eps}}
+    \caption{Total cross section and contributions of various processes around the $H$ peak}%
+    \label{fig:totcrsc_Hpeak}
+\end{figure}
+
+Higgs plot closes analysis of the differential cross section.
+
+\paragraph{Forward-backward asymmetry} We already discovered some asymmetry between forward and backward direction in the differential cross section plot~(\cref{fig:dcrsc}). The commonly used quantity to describe such an asymmetry looks as follows:
+
+\begin{align}
+    A = \frac{\sigma_{\theta > \frac{\pi}{2}} - \sigma_{\theta < \frac{\pi}{2}}}{\sigma_{\theta > \frac{\pi}{2}} + \sigma_{\theta < \frac{\pi}{2}}}
+\end{align}
+
+We plot this quantity and contributions of different channels to it below. Besides general interest in the character of the asymmetry in this process we also eager to confirm our guess, that the asymmetry being generated by interference terms of $Z$ and $\gamma$ channels.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/fbasym.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/fbasym_contrib.eps}}
+    \caption{Forward-backward asymmetry and contributions}%
+    \label{fig:fbasym}
+\end{figure}
+
+Indeed, photon channel doesn't have any asymmetry itself, at the same time at $\sqrt{s} \approx 60~GeV$ $Z$ has $A \approx 0.1$, but together they generate $A \approx -0.6$ confirming the improtance of the interference term for this quantity.
+
+We also explored asymmetry for alternative final states: $e^{+} e^{-}$ and $c \bar{c}$. Both of them are lighter than $b \bar{b}$ and are barely distinguished on the plot, but nonticeably differ from $b \bar{b}$ at the threshold.
+
+\paragraph{New physics. $Z^\prime$ extension} For the educational purposes we extend Standard Model with a copy of $Z$ boson, $Z^\prime$, which is completely the same except of the mass. We put mass of $Z^\prime$ to be $m_{Z^\prime} = 300~GeV$. We then use CompHEP to compare the differential cross section, total cross section and forward-backward asymmetry for two scenarios: with and without $Z^\prime$.
+
+\begin{figure}[H]
+    \centering
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_cos_zprime.eps}}%
+    \hfill%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_zprime.eps}}
+    \caption{Comparison of differential and total cross sections for SM and $Z^\prime$ models}%
+    \label{fig:crsc_zprime}
+\end{figure}
+
+Surprising behavior can be observed in the cross-section plots. It turns out that the additional $Z^\prime$ interfers with the SM one destructively giving the smaller cross-section than in the SM case in the region away of $Z^\prime$ mass.
+
+Also we observe an additional dip in the assymetry plot at the resonance mass of $Z^\prime$. It looks like height of the dip barely depends on the mass of the boson.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{visualized/fbasym_zprime.eps}
+    \caption{Comparison of the forward-backward asymmetry for SM and $Z^\prime$}%
+    \label{fig:fbasym_zprime}
+\end{figure}
+
+\section{ATLAS data analysis}
+
+
+\section{References}
+\bibliographystyle{ieeetr}
+\bibliography{literature}
+
 \end{document}
