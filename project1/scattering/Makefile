@@ -29,5 +29,5 @@ ${OUTPUT_DIR}/visualized/visualize.html: ${SYMBOLIC_OUTPUTS}
 
 plots: ${OUTPUT_DIR}/visualized/visualize.html
 
-clean:
+purge:
 	rm -rf ${OUTPUT_DIR}

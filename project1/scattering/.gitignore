@@ -1,2 +1,3 @@
+*.str
 /output
 .ipynb_checkpoints
