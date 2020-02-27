@@ -1,5 +1,8 @@
 \documentclass{article}
 
+\usepackage{biblatex}
+\addbibresource{literature.bib}
+
 \usepackage[a4paper, margin=1in]{geometry}
 
 \usepackage[utf8]{inputenc}
@@ -26,7 +29,8 @@ captionpos=b
 \usepackage{tikz-feynman}
 
 \usepackage{graphicx}
-\graphicspath{{../scattering/output/}}
+\newcommand{\scatteringoutput}{../scattering/output}
+\newcommand{\invmassoutput}{../invmass/output}
 \usepackage{epstopdf}
 \epstopdfsetup{outdir=output/}
 
@@ -81,7 +85,7 @@ Below we provide the table of numerical values being used in plots and numerics.
 
 \begin{table}[H]
     \centering
-    \caption{Model parameters used for calculations (extracted from CompHEP)}
+    \caption{Model parameters used for calculations (extracted from CompHEP)}%
     \label{tab:params}
     \begin{tabular}{cc}
         \toprule
@@ -106,11 +110,11 @@ To take into account the finite lifetime of massive $Z$ and $h$ in the propagato
     & h: \quad \frac{1}{q^2 - m_h^2} \rightarrow \frac{1}{q^2 - m_h^2 + \ii m_h \Gamma_h}
 \end{align}
 
-Corresponding widths were taken from CompHEP:
+Corresponding widths were taken from CompHEP\@:
 
 \begin{table}[H]
     \centering
-    \caption{Decay widths used for calculations}
+    \caption{Decay widths used for calculations}%
     \label{tab:widths}
     \begin{tabular}{cc}
         \toprule
@@ -143,9 +147,9 @@ First of all we plot the differential cross section as a function of $t = {(\vec
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_t.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/dcrsc_t.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_cos.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/dcrsc_cos.eps}}
     \caption{Differential cross section and contributions of various processes, $s = 120~GeV$}%
     \label{fig:dcrsc}
 \end{figure}
@@ -162,9 +166,9 @@ Also $\frac{d \sigma}{d \cos{\theta}}$ is measured in $pb = 2.56819\times10^{-9}
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_lowS.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_lowS.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_lowS_contrib.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_lowS_contrib.eps}}
     \caption{Total cross section and contributions of various processes at low energies}%
     \label{fig:totcrsc_lowS}
 \end{figure}
@@ -175,7 +179,7 @@ We also want to verify how neglectable are masses of leptons and quarks in this 
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{visualized/totcrsc_lowS_nomass.eps}
+    \includegraphics[width=0.8\linewidth]{\scatteringoutput/visualized/totcrsc_lowS_nomass.eps}
     \caption{Total cross section with zero mass assumptions at low energeis}%
     \label{fig:totcrsc_lowS_nomass}
 \end{figure}
@@ -186,9 +190,9 @@ After working out some features of low energy behavior, let's investigate the bi
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_tail.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_tail.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_tail_contrib.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_tail_contrib.eps}}
     \caption{Total cross section and contributions of various processes at large energies}%
     \label{fig:totcrsc_tail}
 \end{figure}
@@ -197,9 +201,9 @@ Now when we've got an idea about the general behavior of different channels cont
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Zpeak.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_Zpeak.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Zpeak_contrib.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_Zpeak_contrib.eps}}
     \caption{Total cross section and contributions of various processes around the $Z$ peak}%
     \label{fig:totcrsc_Zpeak}
 \end{figure}
@@ -210,9 +214,9 @@ Finally, we arrive to Higgs boson peak~(\cref{fig:totcrsc_Hpeak}), and this is t
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Hpeak.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_Hpeak.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_Hpeak_contrib.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_Hpeak_contrib.eps}}
     \caption{Total cross section and contributions of various processes around the $H$ peak}%
     \label{fig:totcrsc_Hpeak}
 \end{figure}
@@ -229,9 +233,9 @@ We plot this quantity and contributions of different channels to it below. Besid
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/fbasym.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/fbasym.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/fbasym_contrib.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/fbasym_contrib.eps}}
     \caption{Forward-backward asymmetry and contributions}%
     \label{fig:fbasym}
 \end{figure}
@@ -244,9 +248,9 @@ We also explored asymmetry for alternative final states: $e^{+} e^{-}$ and $c \b
 
 \begin{figure}[H]
     \centering
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/dcrsc_cos_zprime.eps}}%
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/dcrsc_cos_zprime.eps}}%
     \hfill%
-    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{visualized/totcrsc_zprime.eps}}
+    \subcaptionbox{}{\includegraphics[width=0.49\linewidth]{\scatteringoutput/visualized/totcrsc_zprime.eps}}
     \caption{Comparison of differential and total cross sections for SM and $Z^\prime$ models}%
     \label{fig:crsc_zprime}
 \end{figure}
@@ -257,16 +261,40 @@ Also we observe an additional dip in the assymetry plot at the resonance mass of
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\linewidth]{visualized/fbasym_zprime.eps}
+    \includegraphics[width=0.8\linewidth]{\scatteringoutput/visualized/fbasym_zprime.eps}
     \caption{Comparison of the forward-backward asymmetry for SM and $Z^\prime$}%
     \label{fig:fbasym_zprime}
 \end{figure}
 
 \section{ATLAS data analysis}
+Using ATLAS Open Data~\cite{url:atlas-open-data} we investigated the invariant mass distribution of the $\mu^{+} \mu^{-}$ and $e^{+} e^{-}$ final states at LHC\@. Channels contributing to this process were classified into several groups:
 
+\begin{itemize}
+    \item Higgs produced by gluons and vector boson fusion (Higgs)
+    \begin{itemize}
+        \item $H \rightarrow W^{+}W^{-} \rightarrow 2l$
+        \item $H \rightarrow ZZ \rightarrow 4l$ --- although these events suppose to have 4 leptons in the final state, detector might fail and miss few. This contributes to the background then.
+\end{itemize}
+    \item Decays of $Z$ (Zjets)
+    \begin{itemize}
+        \item $Z \rightarrow \mu^{+} \mu^{-}$
+        \item $Z \rightarrow e^{+} e^{-}$
+        \item $Z \rightarrow \tau^{+} \tau^{-}$
+    \end{itemize}
+    \item $t \bar{t} \rightarrow W^{+} W^{-} b \bar{b} \rightarrow 2l$ (ttbar)
+    \item Drell-Yan $q \bar{q} \rightarrow Z / \gamma^{\star} \rightarrow 2l$ (DY)
+    \item $WW/ZZ/WZ \rightarrow 2l/4l/3l$ (Diboson, Wjets, Zjets)
+\end{itemize}
 
-\section{References}
-\bibliographystyle{ieeetr}
-\bibliography{literature}
+As a result we've got a stack histogram from the data (based on Even Håland's notebook~\cite{url:even-dilepton}), showing both MC simulations and data points. There also wide peak can be observed around $90~GeV$ corresponding to $Z$ invariant mass. We won't discover the same peak for $W$, because two leptons can be produced only by two $W$ bosons:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{\invmassoutput/invmass.eps}
+    \caption{Invariant mass distribution for dilepton final states from CERN Open Data}%
+    \label{fig:invmass-open-data}
+\end{figure}
+
+\printbibliography{}
 
 \end{document}
