@@ -9,4 +9,4 @@ TODO:
 
 * try different asymptotics, show plots.
 
-<img width="40em" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Reproducible_icon.svg/600px-Reproducible_icon.svg.png" />
+<a href="http://db-reproducibility.seas.harvard.edu/"><img width="40em" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Reproducible_icon.svg/600px-Reproducible_icon.svg.png" /> Self-assigned :)</a>
