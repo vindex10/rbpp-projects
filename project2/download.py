@@ -29,7 +29,7 @@ def fetch_record_file_urls(record_url, filetype):
     record_req = requests.get(record_url)
     soup = BeautifulSoup(record_req.text, features="html.parser")
 
-    typelist = filetype if filetype != "both" else ["csv", "root"]
+    typelist = [filetype] if filetype != "both" else ["csv", "root"]
 
     for link in soup.find_all('a'):
         link_url = link.get("href")
