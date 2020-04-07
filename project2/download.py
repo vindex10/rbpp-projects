@@ -69,13 +69,14 @@ def fetch_record_urls(resource_url, start_date=None, end_date=None):
         date_text = DATE_REGEX.search(date_link.text)
         if date_text is None:
             continue
-        the_date = datetime.strptime(date_text.group(0), "%Y-%m-%d")
+        date_text = date_text.group(0)
+        the_date = datetime.strptime(date_text, "%Y-%m-%d")
         if end_date is not None and end_date - the_date < timedelta(seconds=0):
             continue
         if start_date is not None and the_date - start_date < timedelta(seconds=0):
             return
 
-        record_name = date_link.text
+        record_name = date_text
         record_url = resource_url + "/" + date_link.get("href").strip("/")
         yield record_name, record_url
 
