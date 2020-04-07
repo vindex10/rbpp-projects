@@ -21,8 +21,6 @@ ROOT_URL_LEN = len(ROOT_URL)
 NUM_PROCESSES = 5
 NUM_THREADS_PER_PROCESS = 4
 DATE_REGEX = re.compile(r"[1-9][0-9]{3}(-[0-9]{2}){2}")
-# start_date = date(2018, 5, 30)
-# end_date = date(2020, 1, 8)
 
 logger = logging.getLogger("download_all")
 
