@@ -4,11 +4,15 @@ OUTPUT_DIR=output/
 
 all: report
 
-report: opendata_playground eda feature_processing
+report: $(OUTPUT_DIR)/report.html
+
+$(OUTPUT_DIR)/report.html: opendata_playground eda feature_processing modelling
+	cat $(addprefix $(OUTPUT_DIR), $(addsuffix .html, $^)) > $@
 
 opendata_playground: $(OUTPUT_DIR)/opendata_playground.html
 eda: $(OUTPUT_DIR)/eda.html
 feature_processing: $(OUTPUT_DIR)/feature_processing.html
+modelling: $(OUTPUT_DIR)/modelling.html
 
 $(OUTPUT_DIR)/%.html: %.ipynb 
 	mkdir -p $(dir $@)
