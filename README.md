@@ -6,6 +6,7 @@ Compiled reports for RBPP projects
 
 * [ATLAS Open Data. Higgs production mechanism classification (clean version)](https://vindex10.github.io/rbpp-projects/docs/project-final/report_clean.html)
 * [ATLAS Open Data. Higgs production mechanism classification (full version)](https://vindex10.github.io/rbpp-projects/docs/project-final/report_full.html)
+* [Machine learning workflow in HEP on example of ATLAS Open Data](https://vindex10.github.io/rbpp-projects/docs/project-final/final-slides.pdf)
 
 [Project 2](https://github.com/vindex10/rbpp-projects/tree/master/project2/)
 -----------
